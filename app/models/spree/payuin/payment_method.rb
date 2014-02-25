@@ -8,7 +8,7 @@ module Spree
       preference :merchant_id, :string
       preference :salt,        :string
 
-      attr_accessible :preferred_account_id, :preferred_url, :preferred_mode, :preferred_merchant_id, :preferred_salt
+      #attr_accessible :preferred_account_id, :preferred_url, :preferred_mode, :preferred_merchant_id, :preferred_salt
 
       def payment_profiles_supported?
         true

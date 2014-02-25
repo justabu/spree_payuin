@@ -7,7 +7,7 @@ module Spree
 
       attr_accessible :status, :response, :payment_method_id, :checksum, :transaction_id
 
-      attr_accessor :authorization, :avs_result
+      #attr_accessor :authorization, :avs_result
 
       def success?
         ["in progress", "success"].include? self.status
