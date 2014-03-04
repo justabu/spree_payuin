@@ -1,4 +1,3 @@
-# Copyright 2013 ThoughtWorks, Inc. Licensed under the Apache License, Version 2.0.
 Spree::CheckoutController.class_eval do
   skip_before_filter :verify_authenticity_token,:ensure_valid_state, :only=> [:callback]
 
@@ -30,6 +29,37 @@ Spree::CheckoutController.class_eval do
   end
 
   private
+ # def ensure_valid_state
+
+ #   unless skip_state_validation?
+ #     if (params[:state] && !@order.has_checkout_step?(params[:state])) ||
+ #       (!params[:state] && !@order.has_checkout_step?(@order.state))
+
+ #       @order.state = 'cart'
+ #       redirect_to checkout_state_path(@order.checkout_steps.first)
+ #     end
+ #   end
+
+ # end
+      def ensure_valid_state
+        unless skip_state_validation?
+          if (params[:state] && !@order.has_checkout_step?(params[:state])) ||
+             (!params[:state] && !@order.has_checkout_step?(@order.state))
+
+            @order.state = 'cart'
+            redirect_to checkout_state_path(@order.checkout_steps.first)
+          end
+        end
+
+        # Fix for #4117
+        # If confirmation of payment fails, redirect back to payment screen
+        #if params[:state] == "confirm" && @order.payment_required? && @order.payments.valid.empty?
+        #  flash.keep
+        #  redirect_to checkout_state_path("payment")
+        #end
+      end
+
+
 
   def status_callback
     callback_method = "#{params[:status]}_callback".gsub(/\s/,'_')

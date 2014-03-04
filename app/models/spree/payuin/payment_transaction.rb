@@ -5,7 +5,7 @@ module Spree
       self.table_name = 'spree_payuin_payment_transactions'
       belongs_to :payment_method, :class_name => 'Spree::Payuin::PaymentMethod'
 
-      attr_accessible :status, :response, :payment_method_id, :checksum, :transaction_id
+      #attr_accessible :status, :response, :payment_method_id, :checksum, :transaction_id
 
       #attr_accessor :authorization, :avs_result
 

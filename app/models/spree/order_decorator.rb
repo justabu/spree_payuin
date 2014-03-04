@@ -13,4 +13,16 @@ Spree::Order.class_eval do
     # remove_transition :from => :delivery, :to => :confirm
     # remove_transition :from => :confirm, :to => :confirm
   end
+  def payment
+    payments.first
+  end  
+
+  def payment_method
+    if payment and payment.payment_method
+      payment.payment_method
+    else
+      available_payment_methods.first
+    end
+  end
+
 end
