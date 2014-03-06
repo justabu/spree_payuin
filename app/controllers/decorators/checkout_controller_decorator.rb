@@ -21,6 +21,13 @@ Spree::CheckoutController.class_eval do
     order.save!
   end
 
+  def state_callback(before_or_after = :before)
+      method_name = :"#{before_or_after}_#{@order.state}"
+      p "calling #{method_name}"*80
+      send(method_name) if respond_to?(method_name, true)
+  end
+  
+
   def before_complete
     unless @order.payment.source.success?
       flash[:error] = t(:payment_processing_failed)
