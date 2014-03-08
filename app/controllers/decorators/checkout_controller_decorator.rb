@@ -5,6 +5,8 @@ Spree::CheckoutController.class_eval do
     @order = Spree::Order.find_by_number params[:productinfo]
     payment = @order.payment
     record_transaction payment
+    p "callback" * 80
+    p "#{params[:status]}"*80
     payment.source.update_attributes!(:status => params[:status])
     verify_checksum params
     status_callback
